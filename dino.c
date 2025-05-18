@@ -1,6 +1,7 @@
 // C Program for Dino Game
 #include <conio.h>
-#include <iostream>
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include <time.h>
 #include <windows.h>
