@@ -100,6 +100,81 @@ void displayCharacter(int jumpType = 0)
     pause(gameSpeed);
 }
 
+// Function to display the obstacle on the console
+void displayObstacle()
+{
+    static int obstaclePosition = 0, score = 0;
+
+    // Check for collision with the obstacle
+    if (obstaclePosition == 56 && jumpHeight < 4) {
+        score = 0;
+        gameSpeed = 40;
+        moveTo(36, 8);
+        printf("Game Over");
+        getch();
+        moveTo(36, 8);
+        printf("         ");
+    }
+
+    // Display the obstacle at the specified position
+    moveTo(74 - obstaclePosition, 20);
+    printf("л    л ");
+    // ... (rest of the obstacle display)
+
+    // Update obstacle position and score
+    obstaclePosition++;
+    if (obstaclePosition == 73) {
+        obstaclePosition = 0;
+        score++;
+        moveTo(70, 2);
+        printf("     ");
+        moveTo(70, 2);
+        printf("%d", score);
+        if (gameSpeed > 20)
+            gameSpeed--;
+    }
+}
+
+// Main function
+int main()
+{
+    // Set console mode and initialize variables
+    system("mode con: lines=29 cols=82");
+    char input;
+    int i;
+    displayGameInfo();
+
+    // Game loop
+    while (1) {
+        // Continuous display of character and obstacle
+        // until a key is pressed
+        while (!kbhit()) {
+            displayCharacter();
+            displayObstacle();
+        }
+
+        // Handle user input
+        input = getch();
+        if (input == ' ') {
+            // Jump animation when the space key is pressed
+            for (i = 0; i < 10; i++) {
+                displayCharacter(1);
+                displayObstacle();
+            }
+            for (i = 0; i < 10; i++) {
+                displayCharacter(2);
+                displayObstacle();
+            }
+        }
+        else if (input == 'x') {
+            // Exit the game if the 'X' key is pressed
+            return (0);
+        }
+    }
+
+    return 0;
+}
+
 
 
     
